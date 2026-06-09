@@ -1,0 +1,65 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Diretórios de dependências
+node_modules/
+
+# Diretórios de build e arquivos compilados
+dist
+dist-ssr
+build
+out
+*.tsbuildinfo
+
+# Arquivos locais e de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Caches
+.npm
+.eslintcache
+.stylelintcache
+.cache
+.parcel-cache
+
+# Arquivos do sistema operacional (Mac/Windows)
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+Desktop.ini
+
+# Diretórios e arquivos de IDEs / Editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos de cobertura de testes
+coverage
+.nyc_output
