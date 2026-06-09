@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Lock, ArrowLeft, LayoutDashboard, Package, LogOut, Search, Edit, Trash2, Plus, X, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -88,9 +88,9 @@ export default function AdminPanel({ products, setProducts }: AdminPanelProps) {
 
   if (!isAdminAuth) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#fcebf0] p-4">
+      <div className="flex items-center justify-center min-h-screen bg-[#fde1ee] p-4">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full border border-[#6b1226]/10 text-center">
-          <div className="w-16 h-16 bg-[#fcebf0] rounded-full flex items-center justify-center mx-auto mb-6">
+          <div className="w-16 h-16 bg-[#fde1ee] rounded-full flex items-center justify-center mx-auto mb-6">
             <Lock className="text-[#6b1226]" size={28} />
           </div>
           <h2 className="text-2xl font-serif text-[#6b1226] mb-2">Administração</h2>
@@ -107,7 +107,7 @@ export default function AdminPanel({ products, setProducts }: AdminPanelProps) {
           
           <button 
             onClick={() => adminPass === 'admin123' ? setIsAdminAuth(true) : alert('Senha incorreta! (Dica: admin123)')}
-            className="w-full py-3 bg-[#6b1226] text-[#fcebf0] rounded-lg font-medium hover:bg-[#8a1c36] transition-colors shadow-md"
+            className="w-full py-3 bg-[#6b1226] text-[#fde1ee] rounded-lg font-medium hover:bg-[#8a1c36] transition-colors shadow-md"
           >
             Acessar Painel
           </button>
@@ -139,10 +139,10 @@ export default function AdminPanel({ products, setProducts }: AdminPanelProps) {
         </button>
         </div>
         <div className="flex-1 py-6 flex flex-col gap-2 px-4">
-          <button onClick={() => setAdminTab('dashboard')} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${adminTab === 'dashboard' ? 'bg-[#fcebf0] text-[#6b1226] font-bold' : 'text-gray-500 hover:bg-gray-50'}`}>
+          <button onClick={() => setAdminTab('dashboard')} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${adminTab === 'dashboard' ? 'bg-[#fde1ee] text-[#6b1226] font-bold' : 'text-gray-500 hover:bg-gray-50'}`}>
             <LayoutDashboard size={20} /> Disponibilidade
           </button>
-          <button onClick={() => setAdminTab('products')} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${adminTab === 'products' ? 'bg-[#fcebf0] text-[#6b1226] font-bold' : 'text-gray-500 hover:bg-gray-50'}`}>
+          <button onClick={() => setAdminTab('products')} className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${adminTab === 'products' ? 'bg-[#fde1ee] text-[#6b1226] font-bold' : 'text-gray-500 hover:bg-gray-50'}`}>
             <Package size={20} /> Produtos
           </button>
         </div>
@@ -191,7 +191,7 @@ export default function AdminPanel({ products, setProducts }: AdminPanelProps) {
                         </div>
                       </div>
                       <button
-                        onClick={() => setProducts(products.map(prod => prod.id === p.id ? { ...prod, isAvailable: prod.isAvailable === false } : prod))}
+                        onClick={async () => { const newStatus = p.isAvailable === false; try { await fetch('http://localhost:3000/api/products/' + p.id, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...p, isAvailable: newStatus }) }); setProducts(products.map(prod => prod.id === p.id ? { ...prod, isAvailable: newStatus } : prod)); } catch(e) { console.error(e); } }}
                         className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors border border-transparent ${p.isAvailable !== false ? 'text-gray-500 hover:text-red-600 hover:bg-red-50 hover:border-red-100' : 'text-gray-500 hover:text-green-600 hover:bg-green-50 hover:border-green-100'}`}
                       >
                         {p.isAvailable !== false ? <><EyeOff size={16}/> Ocultar</> : <><Eye size={16}/> Mostrar</>}
@@ -242,8 +242,23 @@ export default function AdminPanel({ products, setProducts }: AdminPanelProps) {
                     <textarea id="productDescription" rows={3} value={newProduct.description} onChange={e => setNewProduct({...newProduct, description: e.target.value})} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#6b1226] transition-colors resize-none" placeholder="Detalhes da peça..." />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="productImage" className="text-sm font-medium text-gray-700">URL da Imagem</label>
-                    <input id="productImage" type="text" value={newProduct.image} onChange={e => setNewProduct({...newProduct, image: e.target.value})} className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#6b1226] transition-colors" placeholder="Opcional. Ex: https://..." />
+                    <label htmlFor="productImage" className="text-sm font-medium text-gray-700">Imagem (URL ou Arquivo)</label>
+                    <div className="flex gap-2">
+                      <input id="productImage" type="text" value={newProduct.image} onChange={e => setNewProduct({...newProduct, image: e.target.value})} className="flex-1 px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:outline-none focus:border-[#6b1226] transition-colors" placeholder="Opcional. Ex: https://..." />
+                      <label className="flex items-center justify-center px-4 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 cursor-pointer transition-colors shadow-sm whitespace-nowrap">
+                        Upload Local
+                        <input type="file" accept="image/*" className="hidden" onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              setNewProduct(prev => ({...prev, image: reader.result}));
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }} />
+                      </label>
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="productColor" className="text-sm font-medium text-gray-700">Categoria (Cor)</label>

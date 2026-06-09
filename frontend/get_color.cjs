@@ -1,0 +1,1 @@
+const fs = require('fs'); const jpeg = require('jpeg-js'); const jpegData = fs.readFileSync('public/logo.jpeg'); const rawImageData = jpeg.decode(jpegData, {useTArray: true}); const r = rawImageData.data[0]; const g = rawImageData.data[1]; const b = rawImageData.data[2]; const hex = '#' + (1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1).toUpperCase(); console.log(hex);

@@ -1,0 +1,1 @@
+const fs = require('fs'); ['src/App.tsx', 'src/Catalog.tsx', 'src/AdminPanel.tsx'].forEach(file => { if (fs.existsSync(file)) { let c = fs.readFileSync(file, 'utf8'); c = c.replace('import React, {', 'import {'); c = c.replace('import React from "react";\\n', ''); fs.writeFileSync(file, c); } });

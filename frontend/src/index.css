@@ -4,6 +4,6 @@
 
 @layer base {
   body {
-    @apply bg-[#fcebf0] text-[#6b1226] font-sans antialiased overflow-x-hidden;
+    @apply bg-[#fde1ee] text-[#6b1226] font-sans antialiased overflow-x-hidden;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Instagram, MessageCircle, X, ChevronDown, Palette, Sparkles, Lock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -67,7 +67,7 @@ export default function Catalog({ products }: CatalogProps) {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#fcebf0]">
+    <div className="relative w-screen h-screen overflow-hidden bg-[#fde1ee]">
       {/* --- TELA DE ABERTURA --- */}
       <AnimatePresence>
         {!showCatalog && (
@@ -76,7 +76,7 @@ export default function Catalog({ products }: CatalogProps) {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
             transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-            className="absolute inset-0 z-50 flex flex-col items-center justify-center py-12 px-6 bg-[#fcebf0]"
+            className="absolute inset-0 z-50 flex flex-col items-center justify-center py-12 px-6 bg-[#fde1ee]"
           >
             <div className="w-full max-w-4xl flex flex-col items-center justify-center gap-8 md:gap-10">
               <motion.img 
@@ -85,8 +85,8 @@ export default function Catalog({ products }: CatalogProps) {
                 transition={{ duration: 1.5, ease: "easeOut" }}
                 src="/logo.jpeg" 
                 alt="Ju Franco Atelier" 
-                className="w-full max-h-[65vh] object-contain rounded-sm"
-                style={{ filter: "drop-shadow(0px 15px 30px rgba(107, 18, 38, 0.15))" }}
+                className="w-full max-w-[85vw] sm:max-w-md md:max-w-2xl max-h-[60vh] object-contain"
+                
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1596460107916-430662021049?auto=format&fit=crop&q=80&w=400';
                 }}
@@ -97,7 +97,7 @@ export default function Catalog({ products }: CatalogProps) {
                   whileHover={{ scale: 1.05, letterSpacing: '4px' }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleAccessClick}
-                  className="relative z-20 px-14 py-4 border border-[#6b1226] bg-[#fcebf0] text-[#6b1226] font-serif tracking-[2px] uppercase text-sm transition-all hover:bg-[#6b1226] hover:text-[#fcebf0] duration-300 shadow-xl"
+                  className="relative z-20 px-8 md:px-14 py-3 md:py-4 border border-[#6b1226] bg-[#fde1ee] text-[#6b1226] font-serif tracking-[2px] uppercase text-sm transition-all hover:bg-[#6b1226] hover:text-[#fde1ee] duration-300 shadow-xl"
                 >
                   <span className="font-bold" style={{ textShadow: "0px 0px 12px rgba(107, 18, 38, 0.6), 0px 0px 24px rgba(107, 18, 38, 0.3)" }}>
                     Acessar Coleção
@@ -116,8 +116,8 @@ export default function Catalog({ products }: CatalogProps) {
       </AnimatePresence>
 
       {/* --- CATÁLOGO PRINCIPAL --- */}
-      <motion.div initial={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }} animate={{ opacity: showCatalog ? 1 : 0, scale: showCatalog ? 1 : 1.05, filter: showCatalog ? 'blur(0px)' : 'blur(10px)', pointerEvents: showCatalog ? 'auto' : 'none' }} transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: showCatalog ? 0.3 : 0 }} className="absolute inset-0 z-40 overflow-y-auto bg-[#fcebf0] scroll-smooth">
-        <header className="sticky top-0 z-30 w-full px-6 py-5 bg-[#fcebf0]/90 backdrop-blur-md border-b border-[#6b1226]/10 flex items-center justify-between">
+      <motion.div initial={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }} animate={{ opacity: showCatalog ? 1 : 0, scale: showCatalog ? 1 : 1.05, filter: showCatalog ? 'blur(0px)' : 'blur(10px)', pointerEvents: showCatalog ? 'auto' : 'none' }} transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1], delay: showCatalog ? 0.3 : 0 }} className="absolute inset-0 z-40 overflow-y-auto bg-[#fde1ee] scroll-smooth">
+        <header className="sticky top-0 z-30 w-full px-6 py-5 bg-[#fde1ee]/90 backdrop-blur-md border-b border-[#6b1226]/10 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <a href="https://instagram.com" target="_blank" rel="noreferrer" className="text-[#6b1226] hover:scale-110 transition-transform">
               <Instagram size={22} strokeWidth={1.5} />
@@ -155,7 +155,7 @@ export default function Catalog({ products }: CatalogProps) {
                       {COLORS.map(color => {
                         const isSelected = color === 'Todos' ? selectedColors.length === 0 : selectedColors.includes(color);
                         return (
-                          <button key={color} onClick={() => { if (color === 'Todos') setSelectedColors([]); else setSelectedColors(prev => prev.includes(color) ? prev.filter(c => c !== color) : [...prev, color]); }} className={`w-full text-left px-4 py-2 text-sm hover:bg-[#fcebf0] transition-colors flex items-center justify-between ${isSelected ? 'bg-[#fcebf0] font-bold' : ''}`}>
+                          <button key={color} onClick={() => { if (color === 'Todos') setSelectedColors([]); else setSelectedColors(prev => prev.includes(color) ? prev.filter(c => c !== color) : [...prev, color]); }} className={`w-full text-left px-4 py-2 text-sm hover:bg-[#fde1ee] transition-colors flex items-center justify-between ${isSelected ? 'bg-[#fde1ee] font-bold' : ''}`}>
                             {color} {isSelected && color !== 'Todos' && <X size={14} className="text-[#6b1226]" />}
                           </button>
                         );
@@ -179,7 +179,7 @@ export default function Catalog({ products }: CatalogProps) {
                       {CATEGORIES.map(category => {
                         const isSelected = category.name === 'Todos' ? selectedEvents.length === 0 : selectedEvents.includes(category.name);
                         return (
-                          <button key={category.name} onClick={() => { if (category.name === 'Todos') { setSelectedEvents([]); setSelectedSubcategories([]); } else { setSelectedEvents(prev => prev.includes(category.name) ? prev.filter(c => c !== category.name) : [...prev, category.name]); } }} className={`w-full text-left px-4 py-2 text-sm hover:bg-[#fcebf0] transition-colors flex items-center justify-between ${isSelected ? 'bg-[#fcebf0] font-bold' : ''}`}>
+                          <button key={category.name} onClick={() => { if (category.name === 'Todos') { setSelectedEvents([]); setSelectedSubcategories([]); } else { setSelectedEvents(prev => prev.includes(category.name) ? prev.filter(c => c !== category.name) : [...prev, category.name]); } }} className={`w-full text-left px-4 py-2 text-sm hover:bg-[#fde1ee] transition-colors flex items-center justify-between ${isSelected ? 'bg-[#fde1ee] font-bold' : ''}`}>
                             {category.name} {isSelected && category.name !== 'Todos' && <X size={14} className="text-[#6b1226]" />}
                           </button>
                         );
@@ -210,7 +210,7 @@ export default function Catalog({ products }: CatalogProps) {
           {filteredProducts.length === 0 ? (
             <div className="text-center py-20">
               <p className="text-[#6b1226]/60 font-serif text-xl">Nenhuma peça encontrada para os filtros selecionados.</p>
-              <button onClick={() => { setSelectedColors([]); setSelectedEvents([]); setSelectedSubcategories([]); }} className="mt-6 px-6 py-2 border border-[#6b1226] text-[#6b1226] hover:bg-[#6b1226] hover:text-[#fcebf0] transition-colors text-sm uppercase tracking-wider">Limpar Filtros</button>
+              <button onClick={() => { setSelectedColors([]); setSelectedEvents([]); setSelectedSubcategories([]); }} className="mt-6 px-6 py-2 border border-[#6b1226] text-[#6b1226] hover:bg-[#6b1226] hover:text-[#fde1ee] transition-colors text-sm uppercase tracking-wider">Limpar Filtros</button>
             </div>
           ) : (
             <>
@@ -222,13 +222,13 @@ export default function Catalog({ products }: CatalogProps) {
                       <div className="absolute inset-0 bg-gradient-to-t from-[#6b1226]/40 via-[#6b1226]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       <div className="absolute top-4 left-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 pointer-events-none">
                         <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#6b1226] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{product.color}</span>
-                        <span className="px-3 py-1 bg-[#6b1226]/90 backdrop-blur-sm text-[#fcebf0] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{product.event}</span>
+                        <span className="px-3 py-1 bg-[#6b1226]/90 backdrop-blur-sm text-[#fde1ee] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{product.event}</span>
                         {product.subcategory && <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-[#6b1226] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{product.subcategory}</span>}
                       </div>
                     </div>
                     <h3 className="font-serif text-xl text-[#6b1226] mb-1">{product.name}</h3>
                     <div className="flex gap-3 mt-4">
-                      <button onClick={() => setViewingProduct(product)} className="w-full bg-[#6b1226] text-[#fcebf0] py-3 rounded-md text-xs tracking-wider uppercase font-medium hover:bg-[#8a1c36] hover:shadow-lg transition-all">Ver Detalhes</button>
+                      <button onClick={() => setViewingProduct(product)} className="w-full bg-[#6b1226] text-[#fde1ee] py-3 rounded-md text-xs tracking-wider uppercase font-medium hover:bg-[#8a1c36] hover:shadow-lg transition-all">Ver Detalhes</button>
                     </div>
                   </motion.div>
                 ))}
@@ -265,7 +265,7 @@ export default function Catalog({ products }: CatalogProps) {
         {viewingProduct && (
           <>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setViewingProduct(null)} className="fixed inset-0 bg-[#6b1226]/20 backdrop-blur-sm z-50" />
-            <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="fixed top-0 right-0 h-full w-full max-w-md bg-[#fcebf0] z-50 shadow-2xl flex flex-col border-l border-[#6b1226]/10">
+            <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className="fixed top-0 right-0 h-full w-full max-w-md bg-[#fde1ee] z-50 shadow-2xl flex flex-col border-l border-[#6b1226]/10">
               <div className="p-6 border-b border-[#6b1226]/10 flex items-center justify-between bg-white/50">
                 <h2 className="font-serif text-2xl text-[#6b1226]">Detalhes da Peça</h2>
                 <button onClick={() => setViewingProduct(null)} className="text-[#6b1226]/60 hover:text-[#6b1226] transition-colors p-2"><X size={24} /></button>
@@ -284,7 +284,7 @@ export default function Catalog({ products }: CatalogProps) {
                 <h3 className="font-serif text-3xl text-[#6b1226] mt-6 leading-tight">{viewingProduct.name}</h3>
                 <div className="flex gap-2 mt-4 mb-6">
                   <span className="px-3 py-1 bg-white text-[#6b1226] border border-[#6b1226]/20 text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{viewingProduct.color}</span>
-                  <span className="px-3 py-1 bg-[#6b1226] text-[#fcebf0] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{viewingProduct.event}</span>
+                  <span className="px-3 py-1 bg-[#6b1226] text-[#fde1ee] text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{viewingProduct.event}</span>
                   {viewingProduct.subcategory && <span className="px-3 py-1 bg-white text-[#6b1226] border border-[#6b1226]/20 text-[10px] uppercase font-bold tracking-wider rounded-full shadow-sm">{viewingProduct.subcategory}</span>}
                 </div>
                 <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }} className="bg-white p-6 rounded-lg shadow-sm border border-[#6b1226]/10">
@@ -292,7 +292,7 @@ export default function Catalog({ products }: CatalogProps) {
                 </motion.div>
               </div>
               <div className="p-6 bg-white border-t border-[#6b1226]/10">
-                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Olá, Ju Franco Atelier! Tenho interesse na peça: _${viewingProduct.name}_${viewingProduct.isAvailable === false ? ' que vi no catálogo, mas notei que está indisponível' : ''}. Poderia me dar mais informações?`)}`} target="_blank" rel="noreferrer" className={`w-full py-4 font-sans font-medium tracking-widest uppercase transition-colors shadow-lg flex items-center justify-center gap-2 rounded-md ${viewingProduct.isAvailable === false ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-[#6b1226] text-[#fcebf0] hover:bg-[#8a1c36]'}`}>
+                <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Olá, Ju Franco Atelier! Tenho interesse na peça: _${viewingProduct.name}_${viewingProduct.isAvailable === false ? ' que vi no catálogo, mas notei que está indisponível' : ''}. Poderia me dar mais informações?`)}`} target="_blank" rel="noreferrer" className={`w-full py-4 font-sans font-medium tracking-widest uppercase transition-colors shadow-lg flex items-center justify-center gap-2 rounded-md ${viewingProduct.isAvailable === false ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-[#6b1226] text-[#fde1ee] hover:bg-[#8a1c36]'}`}>
                   <MessageCircle size={20} /> {viewingProduct.isAvailable === false ? 'Consultar Disponibilidade' : 'Tenho Interesse'}
                 </a>
               </div>

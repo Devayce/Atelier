@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'brand-pink': '#fcebf0',
+        'brand-pink': '#fde1ee',
         'brand-wine': '#6b1226',
       }
     },
